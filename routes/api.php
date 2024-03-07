@@ -26,3 +26,9 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('/movies', StoreMovieController::class);
 });
 
+/*
+ * GET http://127.0.0.1/api/movies = sax kinonery stanumes
+ * GET http://127.0.0.1/api/movies/{id} = mi hatik kinon es stanum yst id-i, orinak http://127.0.0.1/api/movies/1 kam 2 kam 7 kam 50
+ * POST http://127.0.0.1/api/movies = kino sarqelu hamar
+ */
+
