@@ -12,12 +12,12 @@ class MovieService
 {
     public function getAll(): Collection
     {
-        return Movie::all();
+        return Movie::with('movieDates')->get();
     }
 
     public function show($id)
     {
-        return Movie::findOrFail($id);
+        return Movie::find($id);
     }
 
     public function store(array $data): void
