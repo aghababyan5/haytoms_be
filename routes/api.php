@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Movies\DeleteMovieController;
 use App\Http\Controllers\Movies\GetMoviesController;
+use App\Http\Controllers\Movies\ShowMovieController;
 use App\Http\Controllers\Movies\StoreMovieController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,11 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-    Route::get('/movies', GetMoviesController::class);
-    Route::get('/movies/{id}', GetMoviesController::class);
     Route::post('/movies', StoreMovieController::class);
+    Route::get('/movies/{id}', ShowMovieController::class);
+    Route::get('/movies', GetMoviesController::class);
+    Route::delete('/movies/{id}', DeleteMovieController::class);
+//    Route::post('/movies/{id}', UpdateMovieController::class);
 });
 
 /*

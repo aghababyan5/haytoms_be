@@ -15,11 +15,12 @@ return new class extends Migration {
             $table->integer('day');
             $table->string('month');
             $table->string('day_of_week');
-            $table->integer('time');
+            $table->integer('duration');
             $table->string('cinema');
             $table->string('hall');
             $table->string('price');
             $table->string('age_limit')->nullable();
+            $table->string('time', 10);
             $table->foreignId('movie_id')->constrained('movies')
                 ->cascadeOnDelete();
             $table->timestamps();

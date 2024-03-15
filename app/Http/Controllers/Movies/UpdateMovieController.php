@@ -8,7 +8,7 @@ use App\Services\MovieService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ShowMovieController extends Controller
+class UpdateMovieController extends Controller
 {
     protected $service;
 
@@ -17,10 +17,12 @@ class ShowMovieController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke($id): JsonResponse
+    public function __invoke(StoreMovieRequest $request): JsonResponse
     {
+        $this->service->store($request->validated());
+
         return response()->json([
-            'movie' => $this->service->show($id),
+            'message' => 'Data stored successfully',
         ]);
     }
 }

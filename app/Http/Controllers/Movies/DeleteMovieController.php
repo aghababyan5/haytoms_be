@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Movies;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Movie\StoreMovieRequest;
 use App\Services\MovieService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
-class ShowMovieController extends Controller
+class DeleteMovieController extends Controller
 {
     protected $service;
 
@@ -19,8 +17,10 @@ class ShowMovieController extends Controller
 
     public function __invoke($id): JsonResponse
     {
+        $this->service->destroy($id);
+
         return response()->json([
-            'movie' => $this->service->show($id),
+            'message' => 'Movie deleted successfully',
         ]);
     }
 }
