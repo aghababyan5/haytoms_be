@@ -22,17 +22,17 @@ class MovieService
 
     public function store(array $data): void
     {
-        $iconName = Str::random(32).'.'
+        $coverPictureName = Str::random(32).'.'
             .$data['cover_picture']->getClientOriginalExtension();
 
         Storage::disk('public')->put(
-            '/MovieCoverPictures/'.$iconName,
+            '/MovieCoverPictures/'.$coverPictureName,
             file_get_contents($data['cover_picture'])
         );
 
         Movie::create([
             'title'         => $data['title'],
-            'cover_picture' => $iconName,
+            'cover_picture' => $coverPictureName,
             'description'   => $data['description'],
             'trailer'       => $data['trailer'],
         ]);

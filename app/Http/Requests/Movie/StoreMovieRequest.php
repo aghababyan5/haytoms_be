@@ -33,8 +33,8 @@ class StoreMovieRequest extends FormRequest
             'cinema'        => 'required|string',
             'hall'          => 'required|string',
             'price'         => 'required|integer',
-            'age_limit'     => 'sometimes|integer|regex:/^\d{2}$/',
-            'time'          => 'required|string|regex:^(?:[01]\d|2[0-3]):[0-5]\d$',
+            'age_limit'     => 'sometimes|integer|regex:/^\d{1,2}$/',
+            'time'          => 'required|string',
         ];
     }
 }
