@@ -23,9 +23,9 @@ class StoreMovieRequest extends FormRequest
     {
         return [
             'title'         => 'required|string',
-            'cover_picture' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048',
-            'description'   => 'required|string',
-            'trailer'       => 'required|string',
+            'cover_picture' => 'sometimes|image|mimes:jpeg,jpg,png,gif|max:2048',
+            'description'   => 'sometimes|string',
+            'trailer'       => 'sometimes|string',
             'day'           => 'required|integer',
             'month'         => 'required|string',
             'day_of_week'   => 'required|string',

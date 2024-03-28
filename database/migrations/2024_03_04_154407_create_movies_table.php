@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('cover_picture')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('trailer')->nullable();
             $table->timestamps();
         });
