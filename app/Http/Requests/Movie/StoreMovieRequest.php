@@ -26,6 +26,7 @@ class StoreMovieRequest extends FormRequest
             'cover_picture' => 'sometimes|image|mimes:jpeg,jpg,png,gif|max:2048',
             'description'   => 'sometimes|string',
             'trailer'       => 'sometimes|string',
+            'category'      => 'required|string',
             'day'           => 'required|integer',
             'month'         => 'required|string',
             'day_of_week'   => 'required|string',
@@ -35,6 +36,8 @@ class StoreMovieRequest extends FormRequest
             'price'         => 'required|integer',
             'age_limit'     => 'sometimes|integer|regex:/^\d{1,2}$/',
             'time'          => 'required|string',
+            'images'        => 'sometimes|array',
+            'images.*'      => 'sometimes|image|mimes:jpeg,jpg,png,gif|max:2048',
         ];
     }
 }

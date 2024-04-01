@@ -22,10 +22,10 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-    Route::post('/movies', StoreMovieController::class);
-    Route::get('/movies/{id}', ShowMovieController::class);
-    Route::get('/movies', GetMoviesController::class);
-    Route::delete('/movies/{id}', DeleteMovieController::class);
+    Route::post('/movies', StoreMovieController::class); // CREATE
+    Route::get('/movies/{id}', ShowMovieController::class); // SHOW
+    Route::get('/movies', GetMoviesController::class); // GET ALL
+    Route::delete('/movies/{id}', DeleteMovieController::class); // DELETE
 //    Route::post('/movies/{id}', UpdateMovieController::class);
 });
 

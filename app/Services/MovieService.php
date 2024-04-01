@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\ImagePost;
 use App\Models\Movie;
 use App\Models\MovieDate;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -35,6 +37,7 @@ class MovieService
             'cover_picture' => $coverPictureName,
             'description'   => $data['description'],
             'trailer'       => $data['trailer'],
+            'category'      => $data['category'],
         ]);
 
         $movieId = Movie::query()->latest()->first()->id;
@@ -51,6 +54,26 @@ class MovieService
             'time'        => $data['time'],
             'movie_id'    => $movieId,
         ]);
+    }
+
+    public function storeImages($id, $images): Response
+    {
+        foreach ($images as $image) {
+            $imageName = Str::random(32).'.'.$image->getClientOriginalExtension(
+                );
+
+            Storage::put(
+                '/PostPictures/'.$imageName,
+                file_get_contents($image)
+            );
+
+            ImagePost::create([
+                'image'      => $imageName,
+                'product_id' => $id,
+            ]);
+        }
+
+        return response()->noContent();
     }
 
     // Update logic (petqa dzvi kesna grac)
