@@ -21,9 +21,9 @@ class StoreEventController extends Controller
     public function __invoke(StoreEventRequest $request): JsonResponse
     {
         $validated_data = $request->validated();
-        $eventWithoutImagesAndDates = Arr::except($validated_data, 'images, dates');
+        $eventWithoutImagesAndDatesAndSubcategories = Arr::except($validated_data, 'images, dates, subcategories');
 
-        $this->service->store($eventWithoutImagesAndDates);
+        $this->service->store($eventWithoutImagesAndDatesAndSubcategories);
         $storedEventId = Event::latest()->first()->id;
 
         if ($storedEventImages = $request['images']) {
@@ -33,6 +33,8 @@ class StoreEventController extends Controller
         if ($storedEventDates = $request['dates']) {
             $this->service->storeDates($storedEventId, $storedEventDates);
         }
+
+        $this->service->storeSubcategories($storedEventId, $request['subcategories']);
 
         return response()->json([
             'message' => 'Events stored successfully',

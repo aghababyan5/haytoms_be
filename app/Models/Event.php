@@ -21,4 +21,9 @@ class Event extends Model
     {
         return $this->hasMany(EventImage::class);
     }
+
+    public function eventSubcategories(): HasMany
+    {
+        return $this->hasMany(EventSubcategory::class);
+    }
 }
