@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\StoreMovieRequest;
 use App\Models\Movie;
 use App\Services\MovieService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
+use Illuminate\Http\JsonResponse;
 
 class StoreMovieController extends Controller
 {

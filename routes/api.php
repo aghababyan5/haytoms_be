@@ -4,6 +4,7 @@ use App\Http\Controllers\Movies\DeleteMovieController;
 use App\Http\Controllers\Movies\GetMoviesController;
 use App\Http\Controllers\Movies\ShowMovieController;
 use App\Http\Controllers\Movies\StoreMovieController;
+use App\Http\Controllers\Movies\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*

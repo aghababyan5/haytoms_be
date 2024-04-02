@@ -27,6 +27,7 @@ class StoreMovieRequest extends FormRequest
             'description'   => 'sometimes|string',
             'trailer'       => 'sometimes|string',
             'category'      => 'required|string',
+            'subcategory'   => 'required|string',
             'day'           => 'required|integer',
             'month'         => 'required|string',
             'day_of_week'   => 'required|string',

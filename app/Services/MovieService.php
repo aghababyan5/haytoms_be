@@ -24,21 +24,32 @@ class MovieService
 
     public function store(array $data): void
     {
-        $coverPictureName = Str::random(32).'.'
-            .$data['cover_picture']->getClientOriginalExtension();
+        if (isset($data['cover_picture'])) {
+            $coverPictureName = Str::random(32).'.'
+                .$data['cover_picture']->getClientOriginalExtension();
 
-        Storage::disk('public')->put(
-            '/MovieCoverPictures/'.$coverPictureName,
-            file_get_contents($data['cover_picture'])
-        );
+            Storage::disk('public')->put(
+                '/MovieCoverPictures/'.$coverPictureName,
+                file_get_contents($data['cover_picture'])
+            );
 
-        Movie::create([
-            'title'         => $data['title'],
-            'cover_picture' => $coverPictureName,
-            'description'   => $data['description'],
-            'trailer'       => $data['trailer'],
-            'category'      => $data['category'],
-        ]);
+            Movie::create([
+                'title'         => $data['title'],
+                'cover_picture' => $coverPictureName,
+                'description'   => $data['description'],
+                'trailer'       => $data['trailer'],
+                'category'      => $data['category'],
+                'subcategory'   => $data['subcategory'],
+            ]);
+        } else {
+            Movie::create([
+                'title'       => $data['title'],
+                'description' => $data['description'],
+                'trailer'     => $data['trailer'],
+                'category'    => $data['category'],
+                'subcategory' => $data['subcategory'],
+            ]);
+        }
 
         $movieId = Movie::query()->latest()->first()->id;
 
