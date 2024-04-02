@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Posts;
+namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
-use App\Services\PostService;
+use App\Services\EventService;
 use Illuminate\Http\JsonResponse;
 
-class GetPostsController extends Controller
+class GetEventsController extends Controller
 {
     protected $service;
 
-    public function __construct(PostService $service)
+    public function __construct(EventService $service)
     {
         $this->service = $service;
     }
@@ -18,7 +18,7 @@ class GetPostsController extends Controller
     public function __invoke(): JsonResponse
     {
         return response()->json([
-            'posts' => $this->service->getAll(),
+            'events' => $this->service->getAll(),
         ]);
     }
 

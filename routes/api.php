@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Posts\DeletePostController;
-use App\Http\Controllers\Posts\GetPostsController;
-use App\Http\Controllers\Posts\ShowPostController;
-use App\Http\Controllers\Posts\StorePostController;
-use App\Http\Controllers\Posts\TestController;
+use App\Http\Controllers\Events\DeleteEventController;
+use App\Http\Controllers\Events\GetEventsController;
+use App\Http\Controllers\Events\ShowEventController;
+use App\Http\Controllers\Events\StoreEventController;
+use App\Http\Controllers\Events\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-    Route::post('/posts', StorePostController::class); // CREATE
-    Route::get('/posts/{id}', ShowPostController::class); // SHOW
-    Route::get('/posts', GetPostsController::class); // GET ALL
-    Route::delete('/posts/{id}', DeletePostController::class); // DELETE
-//    Route::post('/movies/{id}', UpdatePostController::class);
+    Route::post('/events', StoreEventController::class); // CREATE
+    Route::get('/events/{id}', ShowEventController::class); // SHOW
+    Route::get('/events', GetEventsController::class); // GET ALL
+    Route::delete('/events/{id}', DeleteEventController::class); // DELETE
+//    Route::post('/movies/{id}', UpdateEventController::class);
 });
 
 /*

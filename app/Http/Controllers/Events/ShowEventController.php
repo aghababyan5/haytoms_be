@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Posts;
+namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Movie\StoreMovieRequest;
-use App\Services\PostService;
+use App\Http\Requests\Event\StoreEventRequest;
+use App\Services\EventService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ShowPostController extends Controller
+class ShowEventController extends Controller
 {
     protected $service;
 
-    public function __construct(PostService $service)
+    public function __construct(EventService $service)
     {
         $this->service = $service;
     }
@@ -20,7 +20,7 @@ class ShowPostController extends Controller
     public function __invoke($id): JsonResponse
     {
         return response()->json([
-            'posts' => $this->service->show($id),
+            'event' => $this->service->show($id),
         ]);
     }
 }

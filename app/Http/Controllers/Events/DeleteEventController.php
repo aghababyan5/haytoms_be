@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Posts;
+namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
-use App\Services\PostService;
+use App\Services\EventService;
 use Illuminate\Http\JsonResponse;
 
-class DeletePostController extends Controller
+class DeleteEventController extends Controller
 {
     protected $service;
 
-    public function __construct(PostService $service)
+    public function __construct(EventService $service)
     {
         $this->service = $service;
     }
@@ -20,7 +20,7 @@ class DeletePostController extends Controller
         $this->service->destroy($id);
 
         return response()->json([
-            'message' => 'Post deleted successfully',
+            'message' => 'Event deleted successfully',
         ]);
     }
 }

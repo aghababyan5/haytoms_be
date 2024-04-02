@@ -10,10 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('post_images', function (Blueprint $table) {
+        Schema::create('event_images', function (Blueprint $table) {
             $table->id();
             $table->string('image')->nullable();
-            $table->foreignId('post_id')->constrained('posts')
+            $table->foreignId('event_id')->constrained('events')
                 ->cascadeOnDelete();
             $table->timestamps();
         });

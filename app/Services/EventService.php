@@ -2,23 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\PostImage;
-use App\Models\Post;
-use App\Models\PostDate;
+use App\Models\EventImage;
+use App\Models\Event;
+use App\Models\EventDate;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class PostService
+class EventService
 {
     public function getAll(): Collection
     {
-        return Post::with('postDates', 'postImages')->get();
+        return Event::with('eventDates', 'eventImages')->get();
     }
 
     public function show($id)
     {
-        return Post::with('postDates', 'postImages')->find($id);
+        return Event::with('eventDates', 'eventImages')->find($id);
     }
 
     public function store(array $data): void
@@ -28,11 +28,11 @@ class PostService
                 .$data['cover_picture']->getClientOriginalExtension();
 
             Storage::disk('public')->put(
-                '/PostCoverPictures/'.$coverPictureName,
+                '/EventCoverPictures/'.$coverPictureName,
                 file_get_contents($data['cover_picture'])
             );
 
-            Post::create([
+            Event::create([
                 'title'         => $data['title'],
                 'cover_picture' => $coverPictureName,
                 'description'   => $data['description'],
@@ -41,7 +41,7 @@ class PostService
                 'subcategory'   => $data['subcategory'],
             ]);
         } else {
-            Post::create([
+            Event::create([
                 'title'       => $data['title'],
                 'description' => $data['description'],
                 'trailer'     => $data['trailer'],
@@ -50,9 +50,9 @@ class PostService
             ]);
         }
 //
-//        $postId = Post::query()->latest()->first()->id;
+//        $postId = Event::query()->latest()->first()->id;
 //
-//        PostDate::create([
+//        EventDate::create([
 //            'day'         => $data['day'],
 //            'month'       => $data['month'],
 //            'day_of_week' => $data['day_of_week'],
@@ -73,13 +73,13 @@ class PostService
                 );
 
             Storage::disk('public')->put(
-                '/PostPictures/'.$imageName,
+                '/EventPictures/'.$imageName,
                 file_get_contents($image)
             );
 
-            PostImage::create([
+            EventImage::create([
                 'image'      => $imageName,
-                'post_id'    => $id,
+                'event_id'    => $id,
             ]);
         }
     }
@@ -87,7 +87,7 @@ class PostService
     public function storeDates($id, $dates): void
     {
         foreach ($dates as $date) {
-            PostDate::create([
+            EventDate::create([
                 'day'         => $date['day'],
                 'month'       => $date['month'],
                 'day_of_week' => $date['day_of_week'],
@@ -97,7 +97,7 @@ class PostService
                 'price'       => $date['price'],
                 'age_limit'   => $date['age_limit'],
                 'time'        => $date['time'],
-                'post_id'     => $id,
+                'event_id'     => $id,
             ]);
         }
     }
@@ -107,7 +107,7 @@ class PostService
 
     public function update($id, array $data)
     {
-        $movie = Post::findOrFail($id);
+        $movie = Event::findOrFail($id);
 
         if (isset($data['cover_picture']) && $data['cover_picture'] != '') {
             return $this->updateWithIcon($movie, $data);
@@ -164,7 +164,7 @@ class PostService
 
     public function destroy($id)
     {
-        $movie = Post::findOrFail($id);
+        $movie = Event::findOrFail($id);
         $coverPictureName = $movie['cover_picture'];
 
         Storage::disk('public')->delete(

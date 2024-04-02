@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PostImage extends Model
+class EventDate extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function post(): BelongsTo
+    public function event(): BelongsTo
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Event::class);
     }
 }
