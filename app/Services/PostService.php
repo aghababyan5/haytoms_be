@@ -2,24 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\ImagePost;
-use App\Models\Movie;
-use App\Models\MovieDate;
+use App\Models\PostImage;
+use App\Models\Post;
+use App\Models\PostDate;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class MovieService
+class PostService
 {
     public function getAll(): Collection
     {
-        return Movie::with('movieDates')->get();
+        return Post::with('postDates', 'postImages')->get();
     }
 
     public function show($id)
     {
-        return Movie::with('movieDates')->find($id);
+        return Post::with('postDates', 'postImages')->find($id);
     }
 
     public function store(array $data): void
@@ -29,11 +28,11 @@ class MovieService
                 .$data['cover_picture']->getClientOriginalExtension();
 
             Storage::disk('public')->put(
-                '/MovieCoverPictures/'.$coverPictureName,
+                '/PostCoverPictures/'.$coverPictureName,
                 file_get_contents($data['cover_picture'])
             );
 
-            Movie::create([
+            Post::create([
                 'title'         => $data['title'],
                 'cover_picture' => $coverPictureName,
                 'description'   => $data['description'],
@@ -42,7 +41,7 @@ class MovieService
                 'subcategory'   => $data['subcategory'],
             ]);
         } else {
-            Movie::create([
+            Post::create([
                 'title'       => $data['title'],
                 'description' => $data['description'],
                 'trailer'     => $data['trailer'],
@@ -50,48 +49,65 @@ class MovieService
                 'subcategory' => $data['subcategory'],
             ]);
         }
-
-        $movieId = Movie::query()->latest()->first()->id;
-
-        MovieDate::create([
-            'day'         => $data['day'],
-            'month'       => $data['month'],
-            'day_of_week' => $data['day_of_week'],
-            'duration'    => $data['duration'],
-            'cinema'      => $data['cinema'],
-            'hall'        => $data['hall'],
-            'price'       => $data['price'],
-            'age_limit'   => $data['age_limit'],
-            'time'        => $data['time'],
-            'movie_id'    => $movieId,
-        ]);
+//
+//        $postId = Post::query()->latest()->first()->id;
+//
+//        PostDate::create([
+//            'day'         => $data['day'],
+//            'month'       => $data['month'],
+//            'day_of_week' => $data['day_of_week'],
+//            'duration'    => $data['duration'],
+//            'cinema'      => $data['cinema'],
+//            'hall'        => $data['hall'],
+//            'price'       => $data['price'],
+//            'age_limit'   => $data['age_limit'],
+//            'time'        => $data['time'],
+//            'post_id'     => $postId,
+//        ]);
     }
 
-    public function storeImages($id, $images): Response
+    public function storeImages($id, $images): void
     {
         foreach ($images as $image) {
             $imageName = Str::random(32).'.'.$image->getClientOriginalExtension(
                 );
 
-            Storage::put(
+            Storage::disk('public')->put(
                 '/PostPictures/'.$imageName,
                 file_get_contents($image)
             );
 
-            ImagePost::create([
+            PostImage::create([
                 'image'      => $imageName,
-                'product_id' => $id,
+                'post_id'    => $id,
             ]);
         }
-
-        return response()->noContent();
     }
+
+    public function storeDates($id, $dates): void
+    {
+        foreach ($dates as $date) {
+            PostDate::create([
+                'day'         => $date['day'],
+                'month'       => $date['month'],
+                'day_of_week' => $date['day_of_week'],
+                'duration'    => $date['duration'],
+                'cinema'      => $date['cinema'],
+                'hall'        => $date['hall'],
+                'price'       => $date['price'],
+                'age_limit'   => $date['age_limit'],
+                'time'        => $date['time'],
+                'post_id'     => $id,
+            ]);
+        }
+    }
+
 
     // Update logic (petqa dzvi kesna grac)
 
     public function update($id, array $data)
     {
-        $movie = Movie::findOrFail($id);
+        $movie = Post::findOrFail($id);
 
         if (isset($data['cover_picture']) && $data['cover_picture'] != '') {
             return $this->updateWithIcon($movie, $data);
@@ -148,7 +164,7 @@ class MovieService
 
     public function destroy($id)
     {
-        $movie = Movie::findOrFail($id);
+        $movie = Post::findOrFail($id);
         $coverPictureName = $movie['cover_picture'];
 
         Storage::disk('public')->delete(

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Movies\DeleteMovieController;
-use App\Http\Controllers\Movies\GetMoviesController;
-use App\Http\Controllers\Movies\ShowMovieController;
-use App\Http\Controllers\Movies\StoreMovieController;
-use App\Http\Controllers\Movies\TestController;
+use App\Http\Controllers\Posts\DeletePostController;
+use App\Http\Controllers\Posts\GetPostsController;
+use App\Http\Controllers\Posts\ShowPostController;
+use App\Http\Controllers\Posts\StorePostController;
+use App\Http\Controllers\Posts\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-    Route::post('/movies', StoreMovieController::class); // CREATE
-    Route::get('/movies/{id}', ShowMovieController::class); // SHOW
-    Route::get('/movies', GetMoviesController::class); // GET ALL
-    Route::delete('/movies/{id}', DeleteMovieController::class); // DELETE
-//    Route::post('/movies/{id}', UpdateMovieController::class);
+    Route::post('/posts', StorePostController::class); // CREATE
+    Route::get('/posts/{id}', ShowPostController::class); // SHOW
+    Route::get('/posts', GetPostsController::class); // GET ALL
+    Route::delete('/posts/{id}', DeletePostController::class); // DELETE
+//    Route::post('/movies/{id}', UpdatePostController::class);
 });
 
 /*

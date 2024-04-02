@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Movies;
+namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
-use App\Services\MovieService;
+use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 
-class GetMoviesController extends Controller
+class GetPostsController extends Controller
 {
     protected $service;
 
-    public function __construct(MovieService $service)
+    public function __construct(PostService $service)
     {
         $this->service = $service;
     }
@@ -18,7 +18,7 @@ class GetMoviesController extends Controller
     public function __invoke(): JsonResponse
     {
         return response()->json([
-            'movies' => $this->service->getAll(),
+            'posts' => $this->service->getAll(),
         ]);
     }
 

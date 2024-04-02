@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Movies;
+namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\StoreMovieRequest;
-use App\Services\MovieService;
+use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class UpdateMovieController extends Controller
+class UpdatePostController extends Controller
 {
     protected $service;
 
-    public function __construct(MovieService $service)
+    public function __construct(PostService $service)
     {
         $this->service = $service;
     }

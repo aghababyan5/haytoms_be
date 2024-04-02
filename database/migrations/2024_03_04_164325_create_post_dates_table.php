@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('movie_dates', function (Blueprint $table) {
+        Schema::create('post_dates', function (Blueprint $table) {
             $table->id();
             $table->integer('day');
             $table->string('month');
@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->string('price');
             $table->string('age_limit')->nullable();
             $table->string('time', 10);
-            $table->foreignId('movie_id')->constrained('movies')
-                ->cascadeOnDelete();
+            $table->foreignId('post_id')->constrained('posts')
+                ->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

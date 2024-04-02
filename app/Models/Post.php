@@ -6,14 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Movie extends Model
+class Post extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function movieDates(): HasMany
+    public function postDates(): HasMany
     {
-        return $this->hasMany(MovieDate::class);
+        return $this->hasMany(PostDate::class);
+    }
+
+    public function postImages(): HasMany
+    {
+        return $this->hasMany(PostImage::class);
     }
 }

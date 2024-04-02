@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Movies;
+namespace App\Http\Controllers\Posts;
 
 use App\Http\Controllers\Controller;
-use App\Services\MovieService;
+use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 
-class DeleteMovieController extends Controller
+class DeletePostController extends Controller
 {
     protected $service;
 
-    public function __construct(MovieService $service)
+    public function __construct(PostService $service)
     {
         $this->service = $service;
     }
@@ -20,7 +20,7 @@ class DeleteMovieController extends Controller
         $this->service->destroy($id);
 
         return response()->json([
-            'message' => 'Movie deleted successfully',
+            'message' => 'Post deleted successfully',
         ]);
     }
 }
