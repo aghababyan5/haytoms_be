@@ -36,18 +36,26 @@ class EventService
             );
 
             Event::create([
-                'title'         => $data['title'],
-                'cover_picture' => $coverPictureName,
-                'description'   => $data['description'],
-                'trailer'       => $data['trailer'],
-                'category'      => $data['category'],
+                'title_en'       => $data['title_en'],
+                'title_ru'       => $data['title_ru'],
+                'title_am'       => $data['title_am'],
+                'cover_picture'  => $coverPictureName,
+                'description_en' => $data['description_en'],
+                'description_ru' => $data['description_ru'],
+                'description_am' => $data['description_am'],
+                'trailer'        => $data['trailer'],
+                'category'       => $data['category'],
             ]);
         } else {
             Event::create([
-                'title'       => $data['title'],
-                'description' => $data['description'],
-                'trailer'     => $data['trailer'],
-                'category'    => $data['category'],
+                'title_en'       => $data['title_en'],
+                'title_ru'       => $data['title_ru'],
+                'title_am'       => $data['title_am'],
+                'description_en' => $data['description_en'],
+                'description_ru' => $data['description_ru'],
+                'description_am' => $data['description_am'],
+                'trailer'        => $data['trailer'],
+                'category'       => $data['category'],
             ]);
         }
 //
