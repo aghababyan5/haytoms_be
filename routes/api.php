@@ -4,7 +4,7 @@ use App\Http\Controllers\Events\DeleteEventController;
 use App\Http\Controllers\Events\GetEventsController;
 use App\Http\Controllers\Events\ShowEventController;
 use App\Http\Controllers\Events\StoreEventController;
-use App\Http\Controllers\Events\TestController;
+use App\Http\Controllers\Events\UpdateEventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +27,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('/events/{id}', ShowEventController::class); // SHOW
     Route::get('/events', GetEventsController::class); // GET ALL
     Route::delete('/events/{id}', DeleteEventController::class); // DELETE
-//    Route::post('/movies/{id}', UpdateEventController::class);
+    Route::post('/events/{id}', UpdateEventController::class); // UPDATE
 });
 
 /*

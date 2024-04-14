@@ -19,7 +19,8 @@ return new class extends Migration {
             $table->text('description_en')->nullable();
             $table->text('description_ru')->nullable();
             $table->text('description_am')->nullable();
-            $table->text('trailer')->nullable();
+            $table->text('trailer_url')->nullable();
+            $table->text('trailer_file')->nullable();
             $table->string('category');
             $table->timestamps();
         });

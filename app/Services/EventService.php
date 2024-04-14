@@ -26,6 +26,19 @@ class EventService
 
     public function store(array $data): void
     {
+        Event::create([
+            'title_en'       => $data['title_en'],
+            'title_ru'       => $data['title_ru'],
+            'title_am'       => $data['title_am'],
+            'description_en' => $data['description_en'],
+            'description_ru' => $data['description_ru'],
+            'description_am' => $data['description_am'],
+            'trailer_url'    => $data['trailer_url'],
+            'category'       => $data['category'],
+        ]);
+
+        $event = Event::latest()->first();
+
         if (isset($data['cover_picture'])) {
             $coverPictureName = Str::random(32).'.'
                 .$data['cover_picture']->getClientOriginalExtension();
@@ -35,44 +48,24 @@ class EventService
                 file_get_contents($data['cover_picture'])
             );
 
-            Event::create([
-                'title_en'       => $data['title_en'],
-                'title_ru'       => $data['title_ru'],
-                'title_am'       => $data['title_am'],
-                'cover_picture'  => $coverPictureName,
-                'description_en' => $data['description_en'],
-                'description_ru' => $data['description_ru'],
-                'description_am' => $data['description_am'],
-                'trailer'        => $data['trailer'],
-                'category'       => $data['category'],
-            ]);
-        } else {
-            Event::create([
-                'title_en'       => $data['title_en'],
-                'title_ru'       => $data['title_ru'],
-                'title_am'       => $data['title_am'],
-                'description_en' => $data['description_en'],
-                'description_ru' => $data['description_ru'],
-                'description_am' => $data['description_am'],
-                'trailer'        => $data['trailer'],
-                'category'       => $data['category'],
+            $event->update([
+                'cover_picture' => $coverPictureName,
             ]);
         }
-//
-//        $postId = Event::query()->latest()->first()->id;
-//
-//        EventDate::create([
-//            'day'         => $data['day'],
-//            'month'       => $data['month'],
-//            'day_of_week' => $data['day_of_week'],
-//            'duration'    => $data['duration'],
-//            'cinema'      => $data['cinema'],
-//            'hall'        => $data['hall'],
-//            'price'       => $data['price'],
-//            'age_limit'   => $data['age_limit'],
-//            'time'        => $data['time'],
-//            'post_id'     => $postId,
-//        ]);
+
+        if (isset($data['trailer_file'])) {
+            $videoName = Str::random(32).'.'
+                .$data['trailer_file']->getClientOriginalExtension();
+
+            Storage::disk('public')->put(
+                '/EventVideos/'.$videoName,
+                file_get_contents($data['trailer_file'])
+            );
+
+            $event->update([
+                'trailer_file' => $videoName,
+            ]);
+        }
     }
 
     public function storeImages($id, $images): void
@@ -121,18 +114,12 @@ class EventService
         }
     }
 
-
     // Update logic (petqa dzvi kesna grac)
 
     public function update($id, array $data)
     {
-        $movie = Event::findOrFail($id);
-
-        if (isset($data['cover_picture']) && $data['cover_picture'] != '') {
-            return $this->updateWithIcon($movie, $data);
-        }
-
-        return $this->updateWithoutIcon($movie, $data);
+        $event = Event::with('eventDates', 'eventImages', 'eventSubcategories')
+            ->find($id);
     }
 
     public function updateWithIcon($movie, $data)
@@ -183,13 +170,24 @@ class EventService
 
     public function destroy($id)
     {
-        $movie = Event::findOrFail($id);
-        $coverPictureName = $movie['cover_picture'];
+        $event = Event::with('eventDates', 'eventImages', 'eventSubcategories')
+            ->find($id);
+        $eventsImages = $event['eventImages'];
 
-        Storage::disk('public')->delete(
-            'MovieCoverPictures/'.$coverPictureName
-        );
+        if (isset($event['cover_picture'])) {
+            Storage::disk('public')->delete(
+                'EventCoverPictures/'.$event['cover_picture']
+            );
+        }
 
-        return $movie->delete();
+        if (isset($eventsImages)) {
+            foreach ($eventsImages as $eventsImage) {
+                Storage::disk('public')->delete(
+                    'EventPictures/'.$eventsImage['image']
+                );
+            }
+        }
+
+        return $event->delete();
     }
 }

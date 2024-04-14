@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Events;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Event\StoreEventRequest;
+use App\Http\Requests\Events\StoreEventRequest;
 use App\Services\EventService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
