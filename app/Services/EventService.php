@@ -26,7 +26,7 @@ class EventService
 
     public function store(array $data): void
     {
-        Event::create([
+         Event::create([
             'title_en'       => $data['title_en'],
             'title_ru'       => $data['title_ru'],
             'title_am'       => $data['title_am'],
