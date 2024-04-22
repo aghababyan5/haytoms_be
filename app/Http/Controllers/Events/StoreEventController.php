@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Events;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Events\StoreEventRequest;
 use App\Models\Event;
+use App\Models\User;
 use App\Services\EventService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
 

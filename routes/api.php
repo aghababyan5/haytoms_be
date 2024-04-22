@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Events\DeleteEventController;
 use App\Http\Controllers\Events\GetEventsController;
 use App\Http\Controllers\Events\ShowEventController;
@@ -23,11 +24,12 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-    Route::post('/events', StoreEventController::class); // CREATE
+//    Route::post('/events', StoreEventController::class); // CREATE
     Route::get('/events/{id}', ShowEventController::class); // SHOW
     Route::get('/events', GetEventsController::class); // GET ALL
     Route::delete('/events/{id}', DeleteEventController::class); // DELETE
     Route::post('/events/{id}', UpdateEventController::class); // UPDATE
+    Route::post('/admin', AdminLoginController::class); // Admin login
 });
 
 /*

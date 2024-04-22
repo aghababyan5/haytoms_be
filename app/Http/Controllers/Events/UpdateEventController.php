@@ -17,9 +17,9 @@ class UpdateEventController extends Controller
         $this->service = $service;
     }
 
-    public function __invoke(StoreEventRequest $request): JsonResponse
+    public function __invoke($id, StoreEventRequest $request): JsonResponse
     {
-        $this->service->store($request->validated());
+        $this->service->update($id, $request->validated());
 
         return response()->json([
             'message' => 'Data updated successfully',
