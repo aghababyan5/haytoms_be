@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-//    Route::post('/events', StoreEventController::class); // CREATE
+    Route::post('/events', StoreEventController::class); // CREATE
     Route::get('/events/{id}', ShowEventController::class); // SHOW
     Route::get('/events', GetEventsController::class); // GET ALL
     Route::delete('/events/{id}', DeleteEventController::class); // DELETE

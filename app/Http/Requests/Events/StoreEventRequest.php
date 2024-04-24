@@ -25,7 +25,7 @@ class StoreEventRequest extends FormRequest
             'title_en'                  => 'nullable|string',
             'title_ru'                  => 'nullable|string',
             'title_am'                  => 'nullable|string',
-            'cover_picture'             => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048',
+            'cover_picture'             => 'nullable|image|mimes:jpeg,jpg,png,gif',
             'description_en'            => 'nullable|string',
             'description_ru'            => 'nullable|string',
             'description_am'            => 'nullable|string',
