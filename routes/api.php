@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Events\DeleteEventController;
 use App\Http\Controllers\Events\GetEventsController;
 use App\Http\Controllers\Events\ShowEventController;
 use App\Http\Controllers\Events\StoreEventController;
 use App\Http\Controllers\Events\UpdateEventController;
+use App\Http\Controllers\User\UserStoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +29,10 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('/events', GetEventsController::class); // GET ALL
     Route::delete('/events/{id}', DeleteEventController::class); // DELETE
     Route::post('/events/{id}', UpdateEventController::class); // UPDATE
-    Route::post('/admin', AdminLoginController::class); // Admin login
+    Route::post('/user', UserStoreController::class); // STORE USER OR MODERATOR
 });
+
+// email password confirm password name surname phone number
 
 /*
  * GET http://127.0.0.1/api/movies = sax kinonery stanumes
