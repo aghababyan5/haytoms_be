@@ -6,6 +6,7 @@ use App\Models\EventImage;
 use App\Models\Event;
 use App\Models\EventDate;
 use App\Models\EventSubcategory;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -24,6 +25,7 @@ class EventService
             ->find($id);
     }
 
+
     public function store(array $data): void
     {
         Event::create([
@@ -35,6 +37,7 @@ class EventService
             'description_am' => $data['description_am'],
             'trailer_url'    => $data['trailer_url'],
             'category'       => $data['category'],
+            'user_id'        => auth()->user()->id,
         ]);
 
         $event = Event::latest()->first();

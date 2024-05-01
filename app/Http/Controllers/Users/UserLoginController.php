@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Services\UserService;
@@ -18,9 +18,7 @@ class UserLoginController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
-        $token = $this->service->loginUser(
-            request(['email', 'password'])
-        );
+        $token = auth()->attempt($request->only('email', 'password', 'role'));
 
         if (!$token) {
             return response()->json([
@@ -32,7 +30,6 @@ class UserLoginController extends Controller
             'access_token' => $token,
             'token_type'   => 'bearer',
             'expires_in'   => auth()->factory()->getTTL() * 60,
-            'user'         => auth()->user(),
         ]);
     }
 }

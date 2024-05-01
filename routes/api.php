@@ -5,8 +5,10 @@ use App\Http\Controllers\Events\GetEventsController;
 use App\Http\Controllers\Events\ShowEventController;
 use App\Http\Controllers\Events\StoreEventController;
 use App\Http\Controllers\Events\UpdateEventController;
-use App\Http\Controllers\User\UserLoginController;
-use App\Http\Controllers\User\UserStoreController;
+use App\Http\Controllers\Users\GetAuthUserController;
+use App\Http\Controllers\Users\UserLoginController;
+use App\Http\Controllers\Users\UserLogoutController;
+use App\Http\Controllers\Users\UserStoreController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,17 +27,19 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::group(['middleware' => 'api'], function () {
-    Route::post('/events', StoreEventController::class); // CREATE
     Route::get('/events/{id}', ShowEventController::class); // SHOW
-    Route::get('/events', GetEventsController::class); // GET ALL
+    Route::get('/all-events', GetEventsController::class); // GET ALL
     Route::delete('/events/{id}', DeleteEventController::class); // DELETE
     Route::post('/events/{id}', UpdateEventController::class); // UPDATE
-    Route::group(['prefix' => 'auth'], function () {
-        Route::post(
+    Route::post('/user', UserStoreController::class); // STORE USER OR MODERATOR
+    Route::post('/login', UserLoginController::class); // LOGIN
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get(
             '/user',
-            UserStoreController::class
-        ); // STORE USER OR MODERATOR
-        Route::post('/auth', UserLoginController::class); // USER LOGIN
+            GetAuthUserController::class
+        ); // GET LOGIN EXAC USERIN IRA EVENTNEROV
+        Route::post('/logout', UserLogoutController::class); // LOGOUT
+        Route::post('/events', StoreEventController::class); // CREATE
     });
 });
 

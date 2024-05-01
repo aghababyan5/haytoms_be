@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 
 class UserService
@@ -20,13 +20,9 @@ class UserService
         ]);
     }
 
-    public function loginUser($data)
+    public function getAuthUser(): ?Authenticatable
     {
-        if (!$token = auth()->attempt($data)) {
-            return false;
-        }
-
-        return $token;
+        return auth()->user()->load('events');
     }
 
     protected function respondWithToken($token): JsonResponse

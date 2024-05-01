@@ -29,8 +29,8 @@ class StoreUserRequest extends FormRequest
                 'max:100',
             ], // kara ylni mecatar poqratar u tver
             'surname'               => [
-                'sometimes',
-                'regex:/^[a-zA-Z1-9_ ]+$/u',
+                'nullable',
+                'regex:/^[a-zA-Z ]+$/u',
                 'min:3',
                 'max:100',
             ], // kara ylni mecatar poqratar u tver
