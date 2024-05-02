@@ -37,6 +37,7 @@ class EventService
             'description_am' => $data['description_am'],
             'trailer_url'    => $data['trailer_url'],
             'category'       => $data['category'],
+            'is_visible'     => $data['is_visible'],
             'user_id'        => auth()->user()->id,
         ]);
 
@@ -289,6 +290,12 @@ class EventService
                     'EventPictures/'.$eventsImage['image']
                 );
             }
+        }
+
+        if (isset($event['trailer_file'])) {
+            Storage::disk('public')->delete(
+                'EventVideos/'.$event['trailer_file']
+            );
         }
 
         return $event->delete();

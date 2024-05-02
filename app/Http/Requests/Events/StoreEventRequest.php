@@ -46,6 +46,7 @@ class StoreEventRequest extends FormRequest
             'event_dates.*.time'        => 'nullable|string',
             'images'                    => 'nullable|array',
             'images.*'                  => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048',
+            'is_visible'                => 'required|boolean',
         ];
     }
 }

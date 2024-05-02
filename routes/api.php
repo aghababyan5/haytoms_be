@@ -5,6 +5,7 @@ use App\Http\Controllers\Events\GetEventsController;
 use App\Http\Controllers\Events\ShowEventController;
 use App\Http\Controllers\Events\StoreEventController;
 use App\Http\Controllers\Events\UpdateEventController;
+use App\Http\Controllers\Users\ChangePasswordController;
 use App\Http\Controllers\Users\GetAuthUserController;
 use App\Http\Controllers\Users\UserLoginController;
 use App\Http\Controllers\Users\UserLogoutController;
@@ -29,7 +30,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'api'], function () {
     Route::get('/events/{id}', ShowEventController::class); // SHOW
     Route::get('/all-events', GetEventsController::class); // GET ALL
-    Route::delete('/events/{id}', DeleteEventController::class); // DELETE
     Route::post('/events/{id}', UpdateEventController::class); // UPDATE
     Route::post('/user', UserStoreController::class); // STORE USER OR MODERATOR
     Route::post('/login', UserLoginController::class); // LOGIN
@@ -39,15 +39,17 @@ Route::group(['middleware' => 'api'], function () {
             GetAuthUserController::class
         ); // GET LOGIN EXAC USERIN IRA EVENTNEROV
         Route::post('/logout', UserLogoutController::class); // LOGOUT
+        Route::put('/change-password/{id}', ChangePasswordController::class);
         Route::post('/events', StoreEventController::class); // CREATE
+        Route::delete('/events/{id}', DeleteEventController::class); // DELETE
     });
 });
 
 // email password confirm password name surname phone number
 
 /*
- * GET http://127.0.0.1/api/movies = sax kinonery stanumes
- * GET http://127.0.0.1/api/movies/{id} = mi hatik kinon es stanum yst id-i, orinak http://127.0.0.1/api/movies/1 kam 2 kam 7 kam 50
- * POST http://127.0.0.1/api/movies = kino sarqelu hamar
+ * GET http://127.0.0.1/api/events = sax kinonery stanumes
+ * GET http://127.0.0.1/api/events/{id} = mi hatik kinon es stanum yst id-i, orinak http://127.0.0.1/api/events/1 kam 2 kam 7 kam 50
+ * POST http://127.0.0.1/api/events = kino sarqelu hamar
  */
 

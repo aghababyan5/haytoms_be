@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->text('trailer_url')->nullable();
             $table->text('trailer_file')->nullable();
             $table->string('category');
+            $table->boolean('is_visible')->default(true);
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(
             )->cascadeOnUpdate();
             $table->timestamps();

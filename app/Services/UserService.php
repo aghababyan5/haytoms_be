@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -23,6 +25,22 @@ class UserService
     public function getAuthUser(): ?Authenticatable
     {
         return auth()->user()->load('events');
+    }
+
+    public function changePassword($data, $id)
+    {
+        $user = User::find($id);
+        $oldPasswordHash = $user->password;
+
+        if (Hash::check($data['password'], $oldPasswordHash)
+            && $data['new_password'] == $data['new_password_confirm']
+        ) {
+            return $user->update([
+                'password' => Hash::make(($data['new_password'])),
+            ]);
+        }
+
+        return false;
     }
 
     protected function respondWithToken($token): JsonResponse
