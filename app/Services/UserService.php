@@ -24,7 +24,13 @@ class UserService
 
     public function getAuthUser(): ?Authenticatable
     {
-        return auth()->user()->load('events');
+        return auth()->user()->load(
+            [
+                'events.eventDates',
+                'events.eventImages',
+                'events.eventSubcategories',
+            ]
+        );
     }
 
     public function changePassword($data, $id)

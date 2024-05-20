@@ -30,7 +30,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'api'], function () {
     Route::get('/events/{id}', ShowEventController::class); // SHOW
     Route::get('/all-events', GetEventsController::class); // GET ALL
-    Route::post('/events/{id}', UpdateEventController::class); // UPDATE
     Route::post('/user', UserStoreController::class); // STORE USER OR MODERATOR
     Route::post('/login', UserLoginController::class); // LOGIN
     Route::group(['middleware' => 'auth:api'], function () {
@@ -42,6 +41,7 @@ Route::group(['middleware' => 'api'], function () {
         Route::put('/change-password/{id}', ChangePasswordController::class);
         Route::post('/events', StoreEventController::class); // CREATE
         Route::delete('/events/{id}', DeleteEventController::class); // DELETE
+        Route::post('/events/{id}', UpdateEventController::class); // UPDATE
     });
 });
 
